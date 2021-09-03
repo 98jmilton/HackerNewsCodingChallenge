@@ -8,20 +8,35 @@ import { ArticleService } from "../articleAPI/article.service";
 })
 export class ArticlelistComponent implements OnInit {
   articles: Article[];
+  selected = 'newstories.json';
 
   constructor(private articleService: ArticleService) {
     this.articles = [];
   }
 
-  async ngOnInit() {
-    var articleIDs = await this.articleService.getNewArticles();
-    console.log(articleIDs);
+  ngOnInit(): void {
+    this.getArticles(this.selected);
+  }
 
-    articleIDs.forEach(async (articleID) => {
+  async getArticles(articleOrder: string){
+    this.articles = [];
+    console.log(this.articles);
+    let articleIDs = await this.articleService.getArticles(articleOrder);
+    for (const articleID of articleIDs) {
       var article = await this.articleService.getArticleByID(articleID);
       this.articles.push(article);
-    });
+    }
+  }
 
-    console.log(this.articles);
+  updateArticleList(selected: string){
+    this.selected=selected
+    this.getArticles(this.selected);
+  }
+
+  convertDate(time: number){
+    const articleDate = new Date(time*1000)
+
+    return articleDate.toLocaleString();
   }
 }
+

@@ -1,14 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { ArticlelistComponent } from './article-list/article-list.component';
+import { HeaderComponent } from './header/header.component';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from "@angular/common/http";
+import { MatSelectModule } from "@angular/material/select";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ArticlelistComponent],
-  imports: [BrowserModule, HttpClientModule],
+  declarations: [AppComponent, ArticlelistComponent, HeaderComponent],
+  imports: [BrowserAnimationsModule, BrowserModule, HttpClientModule, MatSelectModule, RouterModule],
+  exports: [MatSelectModule],
   providers: [],
   bootstrap: [AppComponent]
 })

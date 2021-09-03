@@ -10,8 +10,8 @@ export class ArticleService {
 
   constructor(private http: HttpClient){}
 
-  async getNewArticles(){
-    return await this.http.get<number[]>(this.baseURL + "newstories.json").toPromise();
+  async getArticles(articleOrder: String){
+    return await this.http.get<number[]>(this.baseURL + articleOrder).toPromise();
   }
 
   async getArticleByID(id: number){
