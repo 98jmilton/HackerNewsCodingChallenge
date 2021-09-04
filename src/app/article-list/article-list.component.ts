@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from "./article.model";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-articlelist',
@@ -8,6 +9,9 @@ import { Article } from "./article.model";
 export class ArticlelistComponent implements OnInit {
   articles: Article[];
   selected = 'newstories.json';
+  articleAmount = 30;
+  currentPage = 1;
+  articlesFound: number = 0;
   baseURL = "https://hacker-news.firebaseio.com/v0/";
 
   constructor() {
@@ -23,8 +27,9 @@ export class ArticlelistComponent implements OnInit {
 
     const response = await fetch(this.baseURL + this.selected);
     const articleIDs = await response.json();
-
-    const promises = articleIDs.slice(10, 22)
+    this.articlesFound = articleIDs.length;
+    var currentPageLower = this.articleAmount*this.currentPage
+    const promises = articleIDs.slice(currentPageLower, currentPageLower+this.articleAmount )
       .map((articleID: string) =>
         fetch(this.baseURL+`item/${articleID}.json`)
           .then(response => response.json()));
@@ -32,13 +37,20 @@ export class ArticlelistComponent implements OnInit {
   }
 
   updateArticleList(selected: string){
-    this.selected=selected
+    this.selected=selected;
+    this.currentPage = 0;
+    this.getArticles();
+  }
+
+
+  changeArticlesPerPage(pageEvent: PageEvent){
+    this.articleAmount = pageEvent.pageSize;
+    this.currentPage = pageEvent.pageIndex
     this.getArticles();
   }
 
   convertDate(time: number){
     const articleDate = new Date(time*1000)
-
     return articleDate.toLocaleString();
   }
 }

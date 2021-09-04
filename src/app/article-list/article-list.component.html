@@ -16,3 +16,8 @@
   </div>
 </div>
 
+<mat-paginator [length]="articlesFound" [pageSize]="30"
+               [pageSizeOptions]="[30, 50, 70]"
+               (page)="changeArticlesPerPage($event)"
+               aria-label="Select page">
+</mat-paginator>
