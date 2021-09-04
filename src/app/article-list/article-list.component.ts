@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from "./article.model";
-import {PageEvent} from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-articlelist',
@@ -9,6 +9,7 @@ import {PageEvent} from "@angular/material/paginator";
 export class ArticlelistComponent implements OnInit {
   articles: Article[];
   selected = 'newstories.json';
+  loading = false;
   articleAmount = 30;
   currentPage = 1;
   articlesFound: number = 0;
@@ -23,6 +24,7 @@ export class ArticlelistComponent implements OnInit {
   }
 
   async getArticles(){
+    this.loading = true;
     this.articles = [];
 
     const response = await fetch(this.baseURL + this.selected);
@@ -34,6 +36,7 @@ export class ArticlelistComponent implements OnInit {
         fetch(this.baseURL+`item/${articleID}.json`)
           .then(response => response.json()));
     this.articles = await Promise.all(promises);
+    this.loading = false;
   }
 
   updateArticleList(selected: string){

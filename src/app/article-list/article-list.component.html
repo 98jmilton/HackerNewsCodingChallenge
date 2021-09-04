@@ -7,6 +7,8 @@
   </mat-select>
 </mat-form-field>
 
+<mat-progress-spinner mode="indeterminate" *ngIf="loading" style="margin:0 auto;" ></mat-progress-spinner>
+
 <div *ngFor="let article of articles">
   <div class="card">
     <div class="card-body">
