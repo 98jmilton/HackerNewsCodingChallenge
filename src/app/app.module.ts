@@ -8,11 +8,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { MatSelectModule } from "@angular/material/select";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RouterModule} from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, ArticlelistComponent, HeaderComponent],
-  imports: [BrowserAnimationsModule, BrowserModule, HttpClientModule, MatSelectModule, RouterModule],
+  imports: [BrowserAnimationsModule, BrowserModule, HttpClientModule, MatSelectModule, RouterModule.forRoot([])],
   exports: [MatSelectModule],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from "../articleAPI/article.model";
-import { ArticleService } from "../articleAPI/article.service";
+import { Article } from "./article.model";
 
 @Component({
   selector: 'app-articlelist',
@@ -9,28 +8,32 @@ import { ArticleService } from "../articleAPI/article.service";
 export class ArticlelistComponent implements OnInit {
   articles: Article[];
   selected = 'newstories.json';
+  baseURL = "https://hacker-news.firebaseio.com/v0/";
 
-  constructor(private articleService: ArticleService) {
+  constructor() {
     this.articles = [];
   }
 
   ngOnInit(): void {
-    this.getArticles(this.selected);
+    this.getArticles();
   }
 
-  async getArticles(articleOrder: string){
+  async getArticles(){
     this.articles = [];
-    console.log(this.articles);
-    let articleIDs = await this.articleService.getArticles(articleOrder);
-    for (const articleID of articleIDs) {
-      var article = await this.articleService.getArticleByID(articleID);
-      this.articles.push(article);
-    }
+
+    const response = await fetch(this.baseURL + this.selected);
+    const articleIDs = await response.json();
+
+    const promises = articleIDs.slice(10, 22)
+      .map((articleID: string) =>
+        fetch(this.baseURL+`item/${articleID}.json`)
+          .then(response => response.json()));
+    this.articles = await Promise.all(promises);
   }
 
   updateArticleList(selected: string){
     this.selected=selected
-    this.getArticles(this.selected);
+    this.getArticles();
   }
 
   convertDate(time: number){

@@ -1,3 +1,18 @@
+<mat-form-field appearance="fill">
+  <mat-label>Sort articles by:</mat-label>
+  <mat-select [(value)]="selected" (valueChange)="updateArticleList($event)">
+    <mat-option value="beststories.json">Best</mat-option>
+    <mat-option value="topstories.json">Top</mat-option>
+    <mat-option value="newstories.json">New</mat-option>
+  </mat-select>
+</mat-form-field>
+
 <div *ngFor="let article of articles">
-  {{article.by}}
+  <div class="card">
+    <div class="card-body">
+      <a href="{{article.url}}"><h5 class="card-title">{{article.title}}</h5></a>
+      <h6 class="card-subtitle mb-2 text-muted">Author: <span>{{article.by}}</span> | Score: <span>{{article.score}}</span> | Date: <span>{{convertDate(article.time)}}</span></h6>
+    </div>
+  </div>
 </div>
+
