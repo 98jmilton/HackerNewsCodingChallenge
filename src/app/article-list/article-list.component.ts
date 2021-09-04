@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from "./article.model";
 import { PageEvent } from "@angular/material/paginator";
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-articlelist',
@@ -9,14 +10,19 @@ import { PageEvent } from "@angular/material/paginator";
 export class ArticlelistComponent implements OnInit {
   articles: Article[];
   selected = 'newstories.json';
+  fullArticleList = true;
   loading = false;
   articleAmount = 30;
   currentPage = 1;
   articlesFound: number = 0;
   baseURL = "https://hacker-news.firebaseio.com/v0/";
 
-  constructor() {
+  constructor(router: Router) {
     this.articles = [];
+    if(router.url=="/Article"){this.selected = 'newstories.json'; this.fullArticleList=true;}
+    if(router.url=="/Ask"){this.selected = 'askstories.json'; this.fullArticleList=false;}
+    if(router.url=="/Show"){this.selected = 'showstories.json'; this.fullArticleList=false;}
+    if(router.url=="/Jobs"){this.selected = 'jobstories.json'; this.fullArticleList=false;}
   }
 
   ngOnInit(): void {

@@ -15,7 +15,15 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, ArticlelistComponent, HeaderComponent],
-  imports: [A11yModule, BrowserAnimationsModule, BrowserModule, HttpClientModule, MatPaginatorModule, MatSelectModule, MatProgressSpinnerModule, RouterModule.forRoot([])],
+  imports: [A11yModule, BrowserAnimationsModule, BrowserModule, HttpClientModule,
+            MatPaginatorModule, MatSelectModule, MatProgressSpinnerModule,RouterModule,
+    RouterModule.forRoot([
+      {path: '', redirectTo: '/Articles', pathMatch: 'full'},
+      {path: 'Articles', component: ArticlelistComponent},
+      {path: 'Ask', component: ArticlelistComponent},
+      {path: 'Show', component: ArticlelistComponent},
+      {path: 'Jobs', component: ArticlelistComponent}
+    ])],
   exports: [MatSelectModule],
   providers: [],
   bootstrap: [AppComponent]
