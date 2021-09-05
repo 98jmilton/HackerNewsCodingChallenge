@@ -19,6 +19,8 @@ export class ArticlelistComponent implements OnInit {
 
   constructor(router: Router) {
     this.articles = [];
+    // changing api request based on user selection. fullArticleList is used to toggle the sort order,
+    // which is not used when filtering by ask, show or job
     if(router.url=="/Article"){this.selected = 'newstories.json'; this.fullArticleList=true;}
     if(router.url=="/Ask"){this.selected = 'askstories.json'; this.fullArticleList=false;}
     if(router.url=="/Show"){this.selected = 'showstories.json'; this.fullArticleList=false;}
@@ -26,17 +28,20 @@ export class ArticlelistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticles();
+    this.getArticles(); // gets inital list of articles
   }
 
   async getArticles(){
-    this.loading = true;
+    this.loading = true; //used to display the loading spinner untul article data ready to be displayed
     this.articles = [];
 
+    //get list of artices from api in order "selected"
     const response = await fetch(this.baseURL + this.selected);
     const articleIDs = await response.json();
     this.articlesFound = articleIDs.length;
-    var currentPageLower = this.articleAmount*this.currentPage
+
+    //get article data for display. .slice method gets only articles in the current display range
+    let currentPageLower = this.articleAmount * this.currentPage;
     const promises = articleIDs.slice(currentPageLower, currentPageLower+this.articleAmount )
       .map((articleID: string) =>
         fetch(this.baseURL+`item/${articleID}.json`)
@@ -45,20 +50,19 @@ export class ArticlelistComponent implements OnInit {
     this.loading = false;
   }
 
-  updateArticleList(selected: string){
+  updateArticleOrder(selected: string){ // gets new article list in the event of new sorting order being chosen
     this.selected=selected;
     this.currentPage = 0;
     this.getArticles();
   }
 
-
-  changeArticlesPerPage(pageEvent: PageEvent){
+  updatePaginator(pageEvent: PageEvent){ // update pagination number of items per page
     this.articleAmount = pageEvent.pageSize;
     this.currentPage = pageEvent.pageIndex
     this.getArticles();
   }
 
-  convertDate(time: number){
+  convertDate(time: number){ // converts the unix timestamp to a readable date form
     const articleDate = new Date(time*1000)
     return articleDate.toLocaleString();
   }

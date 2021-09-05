@@ -11,7 +11,7 @@ This project serves as an alternative front end web page for the "hacker news" w
 - [x] Pagination of articles
 - [x] Sorting articles by "Top", "Best" and "New"
 - [x] Filtering of articles by "Job", "Ask" and "Show"
-- [ ] Unit testing
+- [x] Unit testing
 - [ ] E2E testing
 - [ ] Implementation of a user system
 - [ ] Using user system for voting, commenting and posting articles

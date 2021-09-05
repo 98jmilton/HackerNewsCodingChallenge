@@ -1,6 +1,6 @@
 <mat-form-field *ngIf="fullArticleList" appearance="fill">
   <mat-label>Sort articles by:</mat-label>
-  <mat-select [(value)]="selected" (valueChange)="updateArticleList($event)">
+  <mat-select [(value)]="selected" (valueChange)="updateArticleOrder($event)">
     <mat-option value="beststories.json">Best</mat-option>
     <mat-option value="topstories.json">Top</mat-option>
     <mat-option value="newstories.json">New</mat-option>
@@ -20,6 +20,6 @@
 
 <mat-paginator [length]="articlesFound" [pageSize]="30"
                [pageSizeOptions]="[30, 50, 70]"
-               (page)="changeArticlesPerPage($event)"
+               (page)="updatePaginator($event)"
                aria-label="Select page">
 </mat-paginator>
