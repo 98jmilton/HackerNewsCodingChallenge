@@ -1,5 +1,7 @@
 # HackerNewsCodingChallenge
 
+This project serves as an alternative front end web page for the "hacker news" website, implementing the [HackerNews API](https://github.com/HackerNews/API)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
 
 ## Development server

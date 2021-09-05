@@ -22,10 +22,6 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('HackerNewsCodingChallenge');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('HackerNewsCodingChallenge app is running!');
-  });
 });
+
+

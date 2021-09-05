@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from "./article.model";
 import { PageEvent } from "@angular/material/paginator";
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-articlelist',
@@ -14,7 +14,7 @@ export class ArticlelistComponent implements OnInit {
   loading = false;
   articleAmount = 30;
   currentPage = 1;
-  articlesFound: number = 0;
+  articlesFound = 0;
   baseURL = "https://hacker-news.firebaseio.com/v0/";
 
   constructor(router: Router) {
