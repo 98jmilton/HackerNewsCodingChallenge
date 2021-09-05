@@ -28,14 +28,14 @@ export class ArticlelistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticles(); // gets inital list of articles
+    this.getArticles(); // gets initial list of articles
   }
 
   async getArticles(){
-    this.loading = true; //used to display the loading spinner untul article data ready to be displayed
+    this.loading = true; //used to display the loading spinner until article data ready to be displayed
     this.articles = [];
 
-    //get list of artices from api in order "selected"
+    //get list of articles from api in order "selected"
     const response = await fetch(this.baseURL + this.selected);
     const articleIDs = await response.json();
     this.articlesFound = articleIDs.length;

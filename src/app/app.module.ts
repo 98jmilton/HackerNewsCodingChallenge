@@ -3,18 +3,19 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ArticlelistComponent } from './article-list/article-list.component';
 import { HeaderComponent } from './header/header.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { A11yModule } from '@angular/cdk/a11y';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from "@angular/material/select";
+import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, ArticlelistComponent, HeaderComponent],
+  declarations: [AppComponent, ArticlelistComponent, HeaderComponent, PageNotFoundComponent],
   imports: [A11yModule, BrowserAnimationsModule, BrowserModule, HttpClientModule,
             MatPaginatorModule, MatSelectModule, MatProgressSpinnerModule,RouterModule,
               RouterModule.forRoot([
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
                 {path: 'Articles', component: ArticlelistComponent},
                 {path: 'Ask', component: ArticlelistComponent},
                 {path: 'Show', component: ArticlelistComponent},
-                {path: 'Jobs', component: ArticlelistComponent}
+                {path: 'Jobs', component: ArticlelistComponent},
+                {path: '**', component: PageNotFoundComponent}
               ])],
   exports: [MatSelectModule],
   providers: [],
